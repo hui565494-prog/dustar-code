@@ -1,0 +1,19 @@
+# 环境与工具目录
+.conda/
+anaconda3/
+msys64/
+Microsoft VS Code/
+.vscode/
+
+# 编译产物
+*.exe
+*.pyc
+__pycache__/
+.ipynb_checkpoints/
+
+# 旧仓库备份
+project/.git-backup/
+
+# 教材（版权）
+neural-networks-and-deep-learning-master/
+深度学习入门：基于Python的理论与实现/
