@@ -5,9 +5,6 @@ anaconda3/
 msys64/
 Microsoft VS Code/
 
-# 旧仓库备份（不纳入新仓库）
-.git-backup/
-
 # 教材（版权内容，不纳入版本控制）
 neural-networks-and-deep-learning-master/
 深度学习入门：基于Python的理论与实现/
