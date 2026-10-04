@@ -1,0 +1,301 @@
+TARGET,NAME_CONTRACT_TYPE,CODE_GENDER,AMT_INCOME_TOTAL,AMT_CREDIT,NAME_EDUCATION_TYPE,DAYS_EMPLOYED,OCCUPATION_TYPE
+0,Cash loans,M,207000.0,465457.5,Secondary / secondary special,-762,Sales staff
+0,Cash loans,F,247500.0,1281712.5,Higher education,-1141,Managers
+0,Cash loans,F,202500.0,495000.0,Secondary / secondary special,-639,Sales staff
+0,Cash loans,F,247500.0,254700.0,Secondary / secondary special,-6982,High skill tech staff
+0,Cash loans,M,112500.0,308133.0,Secondary / secondary special,-1105,Laborers
+0,Cash loans,M,85500.0,152820.0,Secondary / secondary special,365243,
+0,Cash loans,F,112500.0,900000.0,Secondary / secondary special,-345,
+0,Cash loans,M,141606.0,810000.0,Secondary / secondary special,-260,Laborers
+0,Cash loans,F,130500.0,781920.0,Secondary / secondary special,365243,
+0,Cash loans,F,99000.0,900000.0,Secondary / secondary special,-649,Laborers
+1,Cash loans,F,67500.0,331920.0,Secondary / secondary special,-280,Sales staff
+1,Cash loans,M,135000.0,225000.0,Secondary / secondary special,-809,Laborers
+0,Cash loans,F,270000.0,593010.0,Secondary / secondary special,365243,
+0,Cash loans,M,630000.0,1125000.0,Secondary / secondary special,-1093,Core staff
+0,Cash loans,M,180000.0,774000.0,Higher education,-831,High skill tech staff
+0,Cash loans,F,112500.0,142200.0,Secondary / secondary special,-2189,Laborers
+0,Revolving loans,F,256500.0,765000.0,Lower secondary,-6928,Accountants
+0,Cash loans,F,45000.0,454500.0,Secondary / secondary special,-931,Sales staff
+0,Cash loans,F,292500.0,781920.0,Secondary / secondary special,365243,
+0,Cash loans,F,157500.0,824823.0,Higher education,365243,
+0,Cash loans,F,85500.0,225000.0,Lower secondary,365243,
+0,Cash loans,M,270000.0,755190.0,Incomplete higher,-817,High skill tech staff
+0,Cash loans,F,112500.0,503676.0,Higher education,-321,Sales staff
+0,Cash loans,F,247500.0,270045.0,Higher education,365243,
+1,Cash loans,F,112500.0,339241.5,Secondary / secondary special,-778,Sales staff
+0,Cash loans,F,202500.0,500490.0,Higher education,-1329,Accountants
+1,Cash loans,F,67500.0,1024740.0,Secondary / secondary special,-830,Laborers
+0,Cash loans,F,171000.0,375322.5,Secondary / secondary special,-1511,Sales staff
+0,Cash loans,M,315000.0,927000.0,Secondary / secondary special,-1359,Laborers
+0,Cash loans,F,135000.0,675000.0,Higher education,-6344,Accountants
+0,Cash loans,F,202500.0,713889.0,Higher education,-848,
+0,Revolving loans,F,135000.0,360000.0,Secondary / secondary special,365243,
+0,Cash loans,F,180000.0,518562.0,Higher education,365243,
+0,Cash loans,M,225000.0,1710000.0,Secondary / secondary special,365243,
+0,Cash loans,F,180000.0,225000.0,Secondary / secondary special,-2310,
+0,Cash loans,F,135000.0,225000.0,Higher education,-1883,
+0,Revolving loans,F,202500.0,405000.0,Incomplete higher,-2821,Low-skill Laborers
+0,Cash loans,F,150750.0,247500.0,Secondary / secondary special,-926,Sales staff
+0,Cash loans,F,229500.0,808650.0,Secondary / secondary special,365243,
+0,Cash loans,F,157500.0,545040.0,Higher education,-1784,
+1,Cash loans,F,72000.0,254700.0,Higher education,-696,Core staff
+0,Revolving loans,F,112500.0,202500.0,Higher education,-783,Core staff
+0,Cash loans,M,112500.0,254700.0,Higher education,-706,High skill tech staff
+0,Cash loans,M,157500.0,592560.0,Secondary / secondary special,-744,Drivers
+0,Cash loans,F,117000.0,339241.5,Secondary / secondary special,-172,Core staff
+0,Cash loans,F,166500.0,675000.0,Secondary / secondary special,-3754,High skill tech staff
+0,Cash loans,F,157500.0,781920.0,Secondary / secondary special,-6358,High skill tech staff
+0,Cash loans,M,180000.0,1223010.0,Secondary / secondary special,-2141,Laborers
+0,Cash loans,F,157500.0,651600.0,Secondary / secondary special,-7875,Medicine staff
+0,Cash loans,F,130500.0,675000.0,Secondary / secondary special,365243,
+0,Cash loans,F,28350.0,269550.0,Secondary / secondary special,365243,
+0,Cash loans,F,180000.0,125640.0,Secondary / secondary special,-291,Sales staff
+0,Cash loans,F,2025000.0,382500.0,Secondary / secondary special,-976,Secretaries
+0,Revolving loans,F,202500.0,360000.0,Higher education,-2248,Sales staff
+0,Cash loans,M,202500.0,900000.0,Higher education,-1033,Security staff
+0,Cash loans,F,180000.0,301500.0,Incomplete higher,-716,Laborers
+0,Cash loans,M,315000.0,1255680.0,Secondary / secondary special,-369,Laborers
+1,Cash loans,M,112500.0,440784.0,Secondary / secondary special,-743,Laborers
+0,Cash loans,M,315000.0,719946.0,Secondary / secondary special,-1889,Managers
+0,Cash loans,M,202500.0,1078200.0,Secondary / secondary special,-1659,Laborers
+0,Cash loans,F,135000.0,354276.0,Secondary / secondary special,365243,
+0,Cash loans,M,225000.0,247500.0,Higher education,-215,Managers
+0,Cash loans,M,225000.0,468733.5,Higher education,-2396,High skill tech staff
+0,Cash loans,F,67500.0,239850.0,Secondary / secondary special,-11342,Sales staff
+0,Cash loans,F,211500.0,1129500.0,Secondary / secondary special,365243,
+0,Cash loans,F,270000.0,562500.0,Higher education,-5835,Managers
+0,Cash loans,M,180000.0,254700.0,Higher education,-2240,High skill tech staff
+0,Cash loans,F,148500.0,167121.0,Secondary / secondary special,-105,Secretaries
+0,Cash loans,F,126000.0,343800.0,Secondary / secondary special,-957,Cooking staff
+0,Cash loans,M,112500.0,1125000.0,Secondary / secondary special,365243,
+0,Cash loans,F,157500.0,685012.5,Higher education,-4435,Sales staff
+0,Cash loans,F,90000.0,157500.0,Higher education,-686,Core staff
+1,Cash loans,F,112500.0,397017.0,Higher education,-774,
+0,Cash loans,F,243000.0,270000.0,Secondary / secondary special,-3279,
+0,Cash loans,M,225000.0,528633.0,Secondary / secondary special,-500,Managers
+0,Cash loans,F,135000.0,1256400.0,Higher education,-8021,Security staff
+0,Cash loans,M,175500.0,187929.0,Secondary / secondary special,-1667,
+0,Cash loans,F,90000.0,239850.0,Secondary / secondary special,365243,
+0,Cash loans,F,45000.0,225000.0,Secondary / secondary special,-1970,Security staff
+0,Cash loans,F,112500.0,391500.0,Secondary / secondary special,-3434,Sales staff
+0,Cash loans,M,315000.0,1024740.0,Higher education,-259,Drivers
+0,Cash loans,F,112500.0,585000.0,Secondary / secondary special,-118,Laborers
+0,Cash loans,F,202500.0,2013840.0,Secondary / secondary special,-4916,Medicine staff
+1,Cash loans,M,225000.0,1223010.0,Higher education,-194,
+0,Cash loans,M,238500.0,291384.0,Secondary / secondary special,-865,Drivers
+0,Cash loans,F,301500.0,469152.0,Secondary / secondary special,365243,
+0,Cash loans,F,121500.0,454500.0,Secondary / secondary special,-12518,Core staff
+1,Cash loans,M,135000.0,775327.5,Secondary / secondary special,-1003,Security staff
+0,Cash loans,M,396000.0,1125171.0,Higher education,-2692,Managers
+0,Cash loans,F,242550.0,1406880.0,Secondary / secondary special,365243,
+1,Cash loans,M,103500.0,265851.0,Secondary / secondary special,365243,
+0,Cash loans,M,270000.0,1687266.0,Secondary / secondary special,-1896,High skill tech staff
+0,Cash loans,F,270000.0,1687266.0,Higher education,-5591,Core staff
+1,Cash loans,F,76500.0,675000.0,Higher education,365243,
+1,Revolving loans,F,112500.0,270000.0,Secondary / secondary special,-780,Core staff
+0,Cash loans,F,58500.0,247275.0,Secondary / secondary special,365243,
+0,Cash loans,M,112500.0,1006920.0,Secondary / secondary special,365243,
+0,Cash loans,F,121500.0,454500.0,Secondary / secondary special,-161,
+0,Cash loans,F,54000.0,127350.0,Secondary / secondary special,365243,
+0,Revolving loans,M,157500.0,135000.0,Secondary / secondary special,-1639,Laborers
+0,Cash loans,F,256500.0,253377.0,Secondary / secondary special,-4074,
+0,Cash loans,F,112500.0,531706.5,Secondary / secondary special,-827,Laborers
+0,Cash loans,M,247500.0,388512.0,Secondary / secondary special,-860,Laborers
+0,Cash loans,F,265500.0,792477.0,Secondary / secondary special,-5136,Laborers
+0,Revolving loans,F,135000.0,405000.0,Secondary / secondary special,-2072,Core staff
+0,Cash loans,F,67500.0,501948.0,Secondary / secondary special,-12627,
+0,Cash loans,F,87750.0,247275.0,Secondary / secondary special,365243,
+0,Revolving loans,M,112500.0,135000.0,Secondary / secondary special,365243,
+0,Cash loans,F,90000.0,180000.0,Secondary / secondary special,-1908,Laborers
+1,Cash loans,M,112500.0,864000.0,Secondary / secondary special,-1868,
+1,Cash loans,M,49500.0,197820.0,Secondary / secondary special,-1095,Laborers
+0,Cash loans,F,229500.0,610335.0,Secondary / secondary special,-1415,Sales staff
+0,Cash loans,F,225000.0,1006920.0,Higher education,-3522,High skill tech staff
+0,Cash loans,F,72000.0,254700.0,Secondary / secondary special,365243,
+1,Cash loans,F,135000.0,746626.5,Secondary / secondary special,-946,Laborers
+0,Revolving loans,F,112500.0,765000.0,Secondary / secondary special,-5431,
+0,Cash loans,F,54000.0,112068.0,Secondary / secondary special,-6817,Laborers
+0,Cash loans,F,157500.0,651600.0,Secondary / secondary special,-204,Laborers
+0,Cash loans,M,135000.0,1288350.0,Secondary / secondary special,-659,Laborers
+0,Cash loans,F,112500.0,134775.0,Higher education,-1317,Sales staff
+0,Cash loans,F,202500.0,545040.0,Higher education,-3541,Accountants
+0,Revolving loans,F,135000.0,202500.0,Higher education,-2761,Accountants
+0,Cash loans,F,157500.0,324000.0,Secondary / secondary special,-879,Laborers
+0,Cash loans,F,540000.0,1078200.0,Secondary / secondary special,-1060,Managers
+1,Cash loans,F,99000.0,977724.0,Secondary / secondary special,-1838,Sales staff
+0,Cash loans,F,112500.0,688500.0,Secondary / secondary special,365243,
+0,Cash loans,M,135000.0,234000.0,Higher education,-5183,Laborers
+0,Cash loans,F,67500.0,178290.0,Secondary / secondary special,365243,
+0,Cash loans,F,90000.0,318645.0,Secondary / secondary special,365243,
+0,Cash loans,F,67500.0,101880.0,Secondary / secondary special,-512,Core staff
+0,Cash loans,F,67500.0,95940.0,Secondary / secondary special,365243,
+0,Cash loans,F,157500.0,225000.0,Higher education,-2520,Core staff
+0,Cash loans,F,126000.0,594121.5,Secondary / secondary special,365243,
+0,Cash loans,F,202500.0,526500.0,Secondary / secondary special,-9993,Medicine staff
+0,Cash loans,F,135000.0,640080.0,Secondary / secondary special,-180,Laborers
+0,Cash loans,F,112500.0,314100.0,Secondary / secondary special,-825,Core staff
+0,Cash loans,F,135000.0,544491.0,Higher education,-3925,High skill tech staff
+1,Cash loans,M,112500.0,247500.0,Secondary / secondary special,-1388,Laborers
+0,Cash loans,M,180000.0,1350000.0,Higher education,-887,Sales staff
+0,Cash loans,F,117000.0,1024740.0,Higher education,-296,Core staff
+0,Cash loans,F,90000.0,900000.0,Secondary / secondary special,-3311,Sales staff
+0,Cash loans,F,135000.0,1042560.0,Secondary / secondary special,-537,Laborers
+0,Revolving loans,M,112500.0,337500.0,Secondary / secondary special,-1554,Laborers
+1,Cash loans,M,405000.0,640080.0,Secondary / secondary special,-4582,Sales staff
+0,Cash loans,M,225000.0,545040.0,Secondary / secondary special,-813,Core staff
+0,Cash loans,F,270000.0,900000.0,Higher education,365243,
+0,Cash loans,M,112500.0,454500.0,Secondary / secondary special,-1664,
+0,Cash loans,M,45000.0,327024.0,Secondary / secondary special,-909,Laborers
+0,Cash loans,M,99000.0,117162.0,Secondary / secondary special,-1722,Managers
+0,Revolving loans,F,112500.0,247500.0,Higher education,365243,
+0,Cash loans,M,112500.0,1078200.0,Secondary / secondary special,365243,
+0,Revolving loans,F,270000.0,720000.0,Higher education,-4204,Core staff
+0,Cash loans,F,90000.0,260640.0,Secondary / secondary special,365243,
+0,Revolving loans,F,112500.0,270000.0,Secondary / secondary special,-1929,Sales staff
+0,Cash loans,F,112500.0,331834.5,Lower secondary,365243,
+0,Cash loans,M,180000.0,332946.0,Secondary / secondary special,-3179,
+0,Revolving loans,F,90000.0,202500.0,Secondary / secondary special,-2119,Cleaning staff
+0,Cash loans,F,99000.0,436032.0,Secondary / secondary special,-734,Sales staff
+0,Cash loans,F,135000.0,450000.0,Secondary / secondary special,-499,Laborers
+0,Cash loans,F,180000.0,563269.5,Secondary / secondary special,-501,Laborers
+0,Cash loans,M,292500.0,1575000.0,Higher education,-1419,
+0,Cash loans,F,81000.0,117162.0,Secondary / secondary special,-1810,Core staff
+0,Cash loans,M,112500.0,967500.0,Secondary / secondary special,-1824,Drivers
+0,Cash loans,M,144000.0,1024290.0,Higher education,-5590,Core staff
+0,Cash loans,F,90000.0,202500.0,Secondary / secondary special,-777,Sales staff
+0,Cash loans,F,180000.0,781920.0,Higher education,-2492,Secretaries
+0,Cash loans,F,193500.0,1147500.0,Secondary / secondary special,-2471,High skill tech staff
+0,Revolving loans,M,135000.0,315000.0,Higher education,-1774,Managers
+0,Cash loans,F,38250.0,98910.0,Lower secondary,365243,
+0,Cash loans,F,270000.0,1185282.0,Higher education,365243,
+0,Cash loans,F,202500.0,521280.0,Secondary / secondary special,-1375,Laborers
+0,Cash loans,F,85500.0,599472.0,Secondary / secondary special,-4738,High skill tech staff
+0,Cash loans,M,180000.0,1024740.0,Secondary / secondary special,-3482,Laborers
+0,Cash loans,M,180000.0,163332.0,Secondary / secondary special,-477,Low-skill Laborers
+0,Cash loans,F,157500.0,824823.0,Higher education,-1010,Medicine staff
+1,Cash loans,M,112500.0,894906.0,Secondary / secondary special,-1529,
+0,Cash loans,M,166500.0,376078.5,Higher education,-1830,High skill tech staff
+0,Cash loans,F,108000.0,303489.0,Secondary / secondary special,365243,
+0,Cash loans,F,225000.0,473760.0,Incomplete higher,-419,
+0,Cash loans,M,315000.0,296280.0,Secondary / secondary special,-601,IT staff
+0,Cash loans,F,76500.0,272520.0,Secondary / secondary special,-1845,Laborers
+0,Cash loans,M,112500.0,225000.0,Secondary / secondary special,-2806,Managers
+0,Revolving loans,F,157500.0,202500.0,Secondary / secondary special,-423,Laborers
+0,Cash loans,F,90000.0,544491.0,Secondary / secondary special,365243,
+0,Cash loans,F,144000.0,239850.0,Higher education,-1413,
+0,Cash loans,F,117000.0,225000.0,Secondary / secondary special,365243,
+0,Cash loans,F,49500.0,74182.5,Secondary / secondary special,365243,
+1,Cash loans,M,202500.0,1006920.0,Secondary / secondary special,-1322,Laborers
+1,Cash loans,F,157500.0,165024.0,Secondary / secondary special,-2000,Cooking staff
+0,Cash loans,M,90000.0,314100.0,Secondary / secondary special,-727,Sales staff
+0,Cash loans,F,121500.0,568057.5,Incomplete higher,-1828,Core staff
+1,Cash loans,M,103500.0,450000.0,Secondary / secondary special,-4450,Laborers
+1,Cash loans,F,180000.0,781920.0,Higher education,-2397,Managers
+0,Revolving loans,M,112500.0,180000.0,Secondary / secondary special,-1407,Laborers
+0,Cash loans,M,180000.0,254700.0,Secondary / secondary special,-6331,Managers
+0,Cash loans,M,153000.0,360000.0,Higher education,-2734,Managers
+0,Cash loans,M,81000.0,585000.0,Secondary / secondary special,-287,
+0,Cash loans,M,180000.0,436032.0,Secondary / secondary special,-2348,Drivers
+0,Cash loans,F,90000.0,830214.0,Secondary / secondary special,-2053,Core staff
+0,Cash loans,F,54000.0,206280.0,Secondary / secondary special,-2815,Laborers
+1,Cash loans,F,90000.0,891072.0,Secondary / secondary special,-1272,Security staff
+0,Cash loans,F,301500.0,942300.0,Higher education,-425,Core staff
+0,Cash loans,F,202500.0,1354500.0,Secondary / secondary special,365243,
+1,Cash loans,F,292500.0,1575000.0,Secondary / secondary special,-1595,Sales staff
+0,Cash loans,M,225000.0,1206000.0,Secondary / secondary special,-1137,Drivers
+0,Revolving loans,F,90000.0,247500.0,Secondary / secondary special,-642,Sales staff
+0,Cash loans,F,135000.0,364428.0,Secondary / secondary special,-7510,
+0,Cash loans,F,180000.0,256500.0,Higher education,-2915,Sales staff
+0,Cash loans,F,135000.0,906615.0,Secondary / secondary special,-1642,Sales staff
+0,Cash loans,F,270000.0,1687266.0,Higher education,-5681,
+0,Cash loans,M,202500.0,698517.0,Higher education,365243,
+0,Cash loans,F,99000.0,808650.0,Secondary / secondary special,-3333,Sales staff
+0,Cash loans,M,189000.0,573628.5,Secondary / secondary special,-3018,Security staff
+0,Cash loans,F,202500.0,1305000.0,Higher education,-2622,Accountants
+1,Cash loans,F,157500.0,1174977.0,Secondary / secondary special,-179,
+0,Cash loans,F,180000.0,592560.0,Secondary / secondary special,-2039,Laborers
+0,Cash loans,F,225000.0,790830.0,Higher education,-940,Sales staff
+0,Cash loans,F,270000.0,288000.0,Higher education,-3013,Managers
+0,Cash loans,F,112500.0,590337.0,Secondary / secondary special,-4880,Laborers
+1,Cash loans,F,121500.0,562491.0,Secondary / secondary special,365243,
+0,Cash loans,M,81000.0,343377.0,Lower secondary,-3295,Laborers
+0,Cash loans,F,292500.0,364500.0,Lower secondary,-1509,Laborers
+0,Revolving loans,F,90000.0,270000.0,Higher education,-252,Sales staff
+0,Cash loans,M,315000.0,497520.0,Higher education,-3063,
+0,Cash loans,F,90000.0,900000.0,Higher education,-3614,Accountants
+0,Cash loans,F,202500.0,315000.0,Secondary / secondary special,-2887,Accountants
+0,Cash loans,M,81000.0,225000.0,Secondary / secondary special,365243,
+0,Cash loans,F,112500.0,381528.0,Secondary / secondary special,-570,Laborers
+0,Cash loans,M,450000.0,1255680.0,Secondary / secondary special,-7854,Laborers
+0,Cash loans,F,108000.0,781920.0,Secondary / secondary special,365243,
+0,Cash loans,M,292500.0,1078200.0,Higher education,-3289,Managers
+0,Cash loans,M,112500.0,263686.5,Incomplete higher,-1409,Laborers
+0,Cash loans,F,81000.0,142200.0,Secondary / secondary special,-1127,
+0,Cash loans,F,121500.0,346968.0,Secondary / secondary special,-2150,Laborers
+0,Cash loans,F,202500.0,288873.0,Secondary / secondary special,-705,
+0,Cash loans,F,229500.0,52767.0,Lower secondary,-4083,Medicine staff
+0,Cash loans,F,135000.0,440784.0,Secondary / secondary special,-388,Sales staff
+0,Cash loans,F,292500.0,544491.0,Secondary / secondary special,-681,Laborers
+0,Cash loans,M,270000.0,756000.0,Higher education,-1347,Drivers
+0,Cash loans,M,180000.0,1312110.0,Secondary / secondary special,-2989,Laborers
+0,Cash loans,F,148500.0,1193580.0,Secondary / secondary special,-857,Sales staff
+0,Cash loans,F,157500.0,553806.0,Secondary / secondary special,365243,
+0,Cash loans,F,90000.0,388512.0,Secondary / secondary special,-7180,Medicine staff
+0,Revolving loans,M,180000.0,405000.0,Higher education,-2537,
+0,Cash loans,M,225000.0,582768.0,Secondary / secondary special,-1178,
+0,Cash loans,F,180000.0,315000.0,Higher education,-13415,Sales staff
+0,Cash loans,F,135000.0,1506816.0,Secondary / secondary special,-3807,Accountants
+0,Cash loans,M,135000.0,584766.0,Higher education,-2926,
+0,Cash loans,M,166500.0,888840.0,Secondary / secondary special,-2276,
+1,Revolving loans,M,112500.0,247500.0,Higher education,-5324,Drivers
+0,Cash loans,F,99000.0,284400.0,Secondary / secondary special,-1088,Laborers
+0,Cash loans,F,135000.0,247275.0,Secondary / secondary special,-645,
+0,Cash loans,F,283500.0,1006920.0,Secondary / secondary special,-6691,
+0,Cash loans,M,180000.0,808650.0,Secondary / secondary special,-5388,Laborers
+0,Cash loans,F,157500.0,1339884.0,Secondary / secondary special,-1160,Laborers
+0,Cash loans,F,193500.0,625500.0,Secondary / secondary special,-482,
+0,Cash loans,M,202500.0,225000.0,Higher education,-2949,Drivers
+1,Cash loans,F,153000.0,703728.0,Higher education,-545,Sales staff
+0,Cash loans,F,279000.0,900000.0,Higher education,-1946,Managers
+0,Cash loans,M,112500.0,265851.0,Secondary / secondary special,-3989,Laborers
+0,Cash loans,F,157500.0,922666.5,Secondary / secondary special,-2617,Laborers
+0,Cash loans,F,54000.0,125136.0,Secondary / secondary special,365243,
+0,Revolving loans,M,292500.0,337500.0,Lower secondary,365243,
+0,Cash loans,M,315000.0,545040.0,Secondary / secondary special,-410,Laborers
+0,Cash loans,M,270000.0,545040.0,Secondary / secondary special,-3725,Drivers
+0,Cash loans,F,121500.0,219042.0,Secondary / secondary special,-915,Laborers
+0,Cash loans,M,301500.0,203760.0,Secondary / secondary special,-1976,Laborers
+0,Cash loans,F,76500.0,517500.0,Secondary / secondary special,365243,
+0,Cash loans,F,148500.0,437877.0,Incomplete higher,-2572,Sales staff
+0,Cash loans,M,81000.0,67500.0,Secondary / secondary special,-2476,Laborers
+0,Revolving loans,F,90000.0,270000.0,Higher education,-8056,Sales staff
+0,Cash loans,M,225000.0,1113840.0,Secondary / secondary special,-1462,Managers
+1,Cash loans,M,270000.0,679671.0,Secondary / secondary special,-657,Drivers
+1,Cash loans,F,157500.0,450000.0,Secondary / secondary special,-2455,Cooking staff
+0,Cash loans,F,112500.0,284400.0,Secondary / secondary special,365243,
+0,Cash loans,M,180000.0,331834.5,Secondary / secondary special,-1121,Drivers
+0,Cash loans,F,54000.0,123637.5,Secondary / secondary special,365243,
+0,Cash loans,F,225000.0,1724220.0,Secondary / secondary special,365243,
+0,Cash loans,M,202500.0,327024.0,Higher education,-4588,Drivers
+1,Cash loans,M,157500.0,755190.0,Secondary / secondary special,-782,Drivers
+0,Cash loans,F,135000.0,474048.0,Higher education,-1251,
+0,Cash loans,F,189000.0,695439.0,Secondary / secondary special,-4346,Laborers
+0,Cash loans,M,135000.0,545040.0,Lower secondary,-4518,Drivers
+0,Cash loans,M,67500.0,271066.5,Secondary / secondary special,-5071,Security staff
+0,Cash loans,F,72000.0,325908.0,Secondary / secondary special,365243,
+0,Cash loans,M,405000.0,1255680.0,Higher education,-777,Managers
+0,Cash loans,M,121500.0,765261.0,Secondary / secondary special,365243,
+0,Cash loans,M,180000.0,278613.0,Secondary / secondary special,-1409,Accountants
+0,Cash loans,F,135000.0,675000.0,Secondary / secondary special,-1582,Medicine staff
+0,Cash loans,M,67500.0,225000.0,Secondary / secondary special,-1956,
+1,Cash loans,M,135000.0,246357.0,Secondary / secondary special,-831,Laborers
+0,Cash loans,F,135000.0,135000.0,Higher education,-1324,High skill tech staff
+0,Cash loans,F,94500.0,414792.0,Secondary / secondary special,-1977,Medicine staff
+0,Cash loans,M,135000.0,348264.0,Secondary / secondary special,-684,Drivers
+0,Cash loans,F,153000.0,314100.0,Secondary / secondary special,-14037,Managers
+0,Cash loans,F,103500.0,239850.0,Secondary / secondary special,-182,
+0,Cash loans,F,67500.0,99000.0,Secondary / secondary special,365243,
+0,Revolving loans,F,67500.0,180000.0,Secondary / secondary special,-1583,Sales staff
+0,Cash loans,M,130500.0,849415.5,Secondary / secondary special,-1294,Drivers
+0,Cash loans,F,121500.0,654498.0,Secondary / secondary special,365243,
