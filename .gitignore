@@ -19,3 +19,18 @@ neural-networks-and-deep-learning-master/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+
+# æ•°æ®é›† / ç”Ÿæˆäº§ç‰©ï¼ˆä½“ç§¯å¤§ï¼Œä¸çº³å…¥ç‰ˆæœ¬æ§åˆ¶ï¼‰
+project/homecredit/data/
+project/homecredit/output/
+project/homecredit/_baseline.log
+project/homecredit/_baseline.err
+project/neural-network/basic/mnist.npz
+
+# è¯¾ç¨‹ææ–™ï¼ˆç‰ˆæƒå†…å®¹ï¼Œä¸çº³å…¥ç‰ˆæœ¬æ§åˆ¶ï¼‰
+project/homecredit/*.pdf
+project/homecredit/*.docx
+project/homecredit/*.png
+
+# Home Credit Êı¾İÇĞ³öµÄÑùÀı£¨²»ÄÉÈë°æ±¾¿ØÖÆ£©
+python/pandas/mini/

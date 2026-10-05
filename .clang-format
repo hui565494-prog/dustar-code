@@ -1,0 +1,2 @@
+﻿# VS Code C/C++ Format Document 默认风格（fallbackStyle: Visual Studio ≙ Microsoft）
+BasedOnStyle: Microsoft
