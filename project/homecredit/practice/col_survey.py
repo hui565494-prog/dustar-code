@@ -4,7 +4,7 @@ import pandas as pd
 import collections
 
 p = r"D:\Dustar_code\project\homecredit\data\application_train.csv"
-df = pd.read_csv(p, nrows=1000)          # 只读 1000 行拿列名和类型，够用
+df = pd.read_csv(p, nrows=1000)  # 只读 1000 行拿列名和类型，够用
 cols = list(df.columns)
 
 print(f"application_train：共 {len(cols)} 列")
