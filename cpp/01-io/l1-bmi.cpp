@@ -15,8 +15,7 @@ int main()
     double weight;
     std::cin >> weight;
 
-    double bmi;
-    bmi = weight / (height * height);
+    double bmi = weight / (height * height);
 
     std::cout << name << "的BMI是" << bmi << std::endl;
 

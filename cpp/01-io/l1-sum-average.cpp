@@ -19,8 +19,7 @@ int main()
     int sum = first + second + third;
     double average = sum / 3.0;
 
-    std::cout << "和为" << sum << std::endl
-              << "平均值为" << average << std::endl;
+    std::cout << "和为" << sum << std::endl << "平均值为" << average << std::endl;
 
     return 0;
 }
