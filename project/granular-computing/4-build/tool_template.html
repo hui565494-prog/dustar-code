@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>粒化算子台 · 半径 r 下的逐点邻域计数</title>
+<style>
+  :root{
+    --bg:#f4f7fb; --panel:#ffffff; --ink:#16202f; --ink2:#46586e; --muted:#7b8a9d;
+    --line:#e0e6ef; --line2:#cfd8e5;
+    --accent:#2b6ca3; --accent2:#1c4e79; --hot:#d9480f; --ok:#1f7a5a;
+    --c0:#bcd7ee; --c25:#7db2dd; --c50:#4183bd; --c75:#235b91; --c100:#12334f;
+    --shadow:0 1px 2px rgba(20,40,70,.06),0 4px 14px rgba(20,40,70,.05);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font:13px/1.55 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;
+    display:flex; flex-direction:column; overflow:hidden;
+  }
+  .mono{font-family:ui-monospace,Consolas,"Cascadia Mono",monospace}
+  header{
+    flex:none; background:var(--panel); border-bottom:1px solid var(--line);
+    padding:10px 16px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  }
+  header h1{font-size:15px; margin:0; font-weight:650; letter-spacing:.2px}
+  header .tag{
+    font-size:11px; color:var(--accent2); background:#eaf2fa; border:1px solid #cfe1f2;
+    padding:1px 7px; border-radius:99px;
+  }
+  .formula{
+    font-family:ui-monospace,Consolas,monospace; font-size:12px; color:var(--ink2);
+    background:#f7fafd; border:1px solid var(--line); border-radius:8px; padding:5px 10px;
+  }
+  .formula b{color:var(--accent2)}
+  .wrap{flex:1; display:flex; min-height:0}
+  aside{
+    flex:none; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:10px;
+  }
+  #left{width:326px; border-right:1px solid var(--line); background:#fbfdff}
+  #right{width:338px; border-left:1px solid var(--line); background:#fbfdff}
+  main{flex:1; min-width:0; position:relative; background:#fff; display:flex; flex-direction:column}
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:10px 11px; box-shadow:var(--shadow)}
+  .card h2{
+    font-size:11.5px; margin:0 0 8px; font-weight:700; letter-spacing:.6px;
+    color:var(--ink2); text-transform:uppercase;
+  }
+  .note{font-size:11px; color:var(--muted); margin:6px 0 0; line-height:1.5}
+  .dsgrid{display:grid; grid-template-columns:1fr 1fr; gap:5px}
+  .dsgrid button{
+    text-align:left; font:inherit; font-size:11.5px; padding:5px 7px; cursor:pointer;
+    background:#fbfdff; border:1px solid var(--line2); border-radius:7px; color:var(--ink2);
+    line-height:1.35;
+  }
+  .dsgrid button:hover{border-color:#9dc0de; background:#f2f8fd}
+  .dsgrid button.on{background:var(--accent); border-color:var(--accent); color:#fff}
+  .dsgrid button small{display:block; font-size:10px; opacity:.72}
+  .rrow{display:flex; align-items:center; gap:8px}
+  input[type=range]{-webkit-appearance:none; appearance:none; width:100%; height:20px; background:transparent; cursor:pointer}
+  input[type=range]::-webkit-slider-runnable-track{height:4px; border-radius:3px; background:linear-gradient(90deg,#cfe1f2,#7db2dd,#235b91)}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:15px; height:15px; margin-top:-5.5px; border-radius:50%; background:#fff; border:2.5px solid var(--accent); box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  input[type=number]{
+    width:74px; font:inherit; font-family:ui-monospace,monospace; padding:4px 6px; font-size:12px;
+    border:1px solid var(--line2); border-radius:6px; color:var(--ink); background:#fff;
+  }
+  .chips{display:flex; gap:4px; margin-top:7px; flex-wrap:wrap}
+  .chips button{
+    font:inherit; font-size:11px; padding:2px 8px; border-radius:99px; cursor:pointer;
+    background:#f7fafd; border:1px solid var(--line2); color:var(--ink2);
+  }
+  .chips button:hover{background:#eaf2fa; border-color:#9dc0de}
+  .btnrow{display:flex; gap:5px; flex-wrap:wrap}
+  .btnrow button{
+    font:inherit; font-size:12px; padding:5px 10px; cursor:pointer; border-radius:7px;
+    background:#fff; border:1px solid var(--line2); color:var(--ink2);
+  }
+  .btnrow button:hover{background:#f2f8fd; border-color:#9dc0de}
+  .btnrow button.primary{background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600}
+  .btnrow button.primary:hover{background:var(--accent2)}
+  .line{display:flex; align-items:center; gap:8px; font-size:11.5px; color:var(--ink2); margin-top:7px}
+  .line>span:first-child{flex:none; width:52px; color:var(--muted)}
+  select{font:inherit; font-size:11.5px; padding:3px 6px; border-radius:6px; border:1px solid var(--line2); color:var(--ink); background:#fff}
+  .prog{height:5px; border-radius:3px; background:#e8eef6; overflow:hidden; margin:8px 0 6px}
+  .prog>div{height:100%; width:0; background:linear-gradient(90deg,#7db2dd,#235b91); transition:width .06s linear}
+  .ck{display:flex; flex-direction:column; gap:5px; font-size:12px; color:var(--ink2)}
+  .ck label{display:flex; align-items:flex-start; gap:6px; cursor:pointer; line-height:1.4}
+  .ck input{margin:2px 0 0; accent-color:var(--accent); flex:none}
+  .seg{display:flex; gap:0; margin:2px 0 7px; border:1px solid var(--line2); border-radius:7px; overflow:hidden}
+  .seg button{
+    flex:1; font:inherit; font-size:11.5px; padding:4px 2px; cursor:pointer; border:0;
+    background:#fff; color:var(--ink2); border-right:1px solid var(--line2);
+  }
+  .seg button:last-child{border-right:0}
+  .seg button.on{background:#eaf2fa; color:var(--accent2); font-weight:600}
+  .seg button:hover{background:#f2f8fd}
+  canvas{display:block}
+  #cvwrap{flex:1; min-height:0; position:relative}
+  #cv{width:100%; height:100%}
+  #legend{
+    position:absolute; left:12px; bottom:12px; background:rgba(255,255,255,.94);
+    border:1px solid var(--line); border-radius:8px; padding:7px 9px; font-size:10.5px; color:var(--ink2);
+    box-shadow:var(--shadow); pointer-events:none; min-width:172px;
+  }
+  .lbar{height:9px; border-radius:3px; margin:4px 0 2px; background:linear-gradient(90deg,var(--c0),var(--c25),var(--c50),var(--c75),var(--c100))}
+  .lsc{display:flex; justify-content:space-between; font-family:ui-monospace,monospace; font-size:10px; color:var(--muted)}
+  #tip{
+    position:absolute; pointer-events:none; background:#16202f; color:#fff; font-size:11px;
+    padding:3px 7px; border-radius:5px; white-space:nowrap; transform:translate(-50%,-140%);
+    display:none; font-family:ui-monospace,monospace; z-index:9;
+  }
+  #hud{
+    position:absolute; right:12px; top:12px; background:rgba(255,255,255,.94); border:1px solid var(--line);
+    border-radius:8px; padding:6px 10px; font-size:11px; color:var(--ink2); box-shadow:var(--shadow);
+    font-family:ui-monospace,monospace; pointer-events:none; text-align:right;
+  }
+  #hud b{color:var(--accent2); font-weight:650}
+  .pointcard{
+    border:1px solid var(--line2); border-radius:8px; padding:8px 9px; background:#f7fafd;
+    font-family:ui-monospace,monospace; font-size:11.5px; color:var(--ink); line-height:1.7;
+  }
+  .pointcard .k{color:var(--muted)}
+  .pointcard .big{font-size:19px; font-weight:700; color:var(--accent2); font-family:system-ui,sans-serif}
+  .st{display:grid; grid-template-columns:auto 1fr auto 1fr; gap:2px 8px; font-size:11.5px; color:var(--ink2); margin-bottom:8px}
+  .st .v{font-family:ui-monospace,monospace; color:var(--ink); text-align:right}
+  .st .k{color:var(--muted)}
+  .tblwrap{max-height:206px; overflow:auto; border:1px solid var(--line); border-radius:7px}
+  table{border-collapse:collapse; width:100%; font-family:ui-monospace,monospace; font-size:11px}
+  th{position:sticky; top:0; background:#f2f6fb; color:var(--ink2); font-weight:600; text-align:right; padding:3px 7px; border-bottom:1px solid var(--line2); z-index:2}
+  th:first-child{text-align:left}
+  td{padding:1.5px 7px; text-align:right; border-bottom:1px solid #f0f4f9; color:var(--ink2); white-space:nowrap}
+  td:first-child{text-align:left; color:var(--muted)}
+  tr.hl td{background:#fdf1e8}
+  tr.sel td{background:#e8f2fb; color:var(--ink); font-weight:600}
+  td .cc{display:inline-block; min-width:30px; color:var(--accent2); font-weight:650}
+  td .pend{color:#c2ccd8}
+  footer.help{
+    flex:none; border-top:1px solid var(--line); background:var(--panel); padding:7px 16px;
+    font-size:11.5px; color:var(--muted); display:flex; gap:20px; flex-wrap:wrap;
+  }
+  footer.help b{color:var(--ink2)}
+  .badge{display:inline-block; padding:0 5px; border-radius:4px; font-size:10px; border:1px solid var(--line2); color:var(--muted)}
+  .badge.ext{border-color:#e8c9a8; color:#a25c17; background:#fdf5ec}
+  @media (max-width:1180px){ #right{display:none} }
+  @media (max-width:900px){ #left{width:272px} }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>粒化算子台 · 逐点邻域计数</h1>
+  <span class="tag">算子：给定 r，数圆内的点</span>
+  <span class="formula">N<sub>r</sub>(p<sub>i</sub>) = { p<sub>j</sub> : ‖p<sub>i</sub>−p<sub>j</sub>‖ ≤ r }　→　<b>c<sub>i</sub> = |N<sub>r</sub>(p<sub>i</sub>)| ≥ 1</b>　（含自身）</span>
+</header>
+
+<div class="wrap">
+
+<aside id="left">
+
+  <section class="card">
+    <h2>1 · 原始素材（未加工）</h2>
+    <div class="dsgrid" id="dsgrid"></div>
+    <p class="note" id="dsnote"></p>
+  </section>
+
+  <section class="card">
+    <h2>2 · 算子参数 r</h2>
+    <div class="rrow">
+      <input type="range" id="r" min="0.01" max="0.80" step="0.005" value="0.12">
+      <input type="number" id="rn" min="0.005" max="1.50" step="0.005" value="0.12">
+    </div>
+    <div class="chips" id="rchips"></div>
+    <p class="note">r 是<b>数据坐标下的真实距离</b>，不随画布缩放改变。拖动即重算全部 c<sub>i</sub>。</p>
+  </section>
+
+  <section class="card">
+    <h2>3 · 把过程画出来</h2>
+    <div class="btnrow">
+      <button id="play" class="primary">▶ 逐点扫描</button>
+      <button id="step">⏭ 单步</button>
+      <button id="rst">⏮ 重置</button>
+      <button id="jump">⚡ 一次算完</button>
+    </div>
+    <div class="prog"><div id="progbar"></div></div>
+    <div class="mono" id="scaninfo" style="font-size:11px;color:#46586e">未开始</div>
+    <label class="line"><span>速度</span><input type="range" id="speed" min="2" max="240" step="2" value="40"><span class="mono" id="speedv" style="width:52px;text-align:right">40/秒</span></label>
+    <label class="line"><span>遍历序</span>
+      <select id="order" style="flex:1">
+        <option value="index">原始序号 0→n-1</option>
+        <option value="lr">从左到右</option>
+        <option value="out">从中心向外</option>
+        <option value="rand">随机序</option>
+      </select>
+    </label>
+  </section>
+
+  <section class="card">
+    <h2>4 · 显示层（叠加在点云上）</h2>
+    <div class="seg" id="circleseg">
+      <button data-v="all">全部圆</button>
+      <button data-v="current" class="on">只画当前</button>
+      <button data-v="none">不画圆</button>
+    </div>
+    <div class="ck">
+      <label><input type="checkbox" id="ck-fill" checked><span>圆盘填充（看覆盖面积）</span></label>
+      <label><input type="checkbox" id="ck-link" checked><span>把圆内点连线到圆心</span></label>
+      <label><input type="checkbox" id="ck-color" checked><span>按 c<sub>i</sub> 给点上色</span></label>
+      <label><input type="checkbox" id="ck-size"><span>点面积 ∝ c<sub>i</sub></span></label>
+      <label><input type="checkbox" id="ck-label"><span>标出点序号</span></label>
+      <label><input type="checkbox" id="ck-logyue"><span>色阶固定为 log(1+c)/log(1+n)</span></label>
+      <hr style="border:0;border-top:1px solid var(--line);margin:3px 0">
+      <label><input type="checkbox" id="ck-comp"><span><span class="badge ext">延伸</span> 把邻域闭包成粒（连通分量着色）</span></label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>5 · 取走数据</h2>
+    <div class="btnrow">
+      <button id="expcsv">下载 CSV</button>
+      <button id="expjson">下载 JSON</button>
+      <button id="exppy">复制 Python 片段</button>
+    </div>
+    <p class="note">导出的每个点都是 <span class="mono">(x, y, c)</span> 三字段——算子的结果真的<b>存进了点里</b>。</p>
+  </section>
+
+</aside>
+
+<main>
+  <div id="cvwrap">
+    <canvas id="cv"></canvas>
+    <div id="hud"></div>
+    <div id="legend">
+      <div style="display:flex;justify-content:space-between"><span>c<sub>i</sub> 色阶</span><span class="mono" id="lgmode">自适应</span></div>
+      <div class="lbar"></div>
+      <div class="lsc"><span id="lgmin">1</span><span id="lgmax">n</span></div>
+    </div>
+    <div id="tip"></div>
+  </div>
+  <footer class="help">
+    <span><b>悬停</b> 任一点 → 看它的圆与 c<sub>i</sub></span>
+    <span><b>单击</b> → 钉住该点（钉住后拖动 r 可看它的粒度怎么变）</span>
+    <span><b>空白处拖动</b> → 平移　<b>滚轮</b> → 缩放</span>
+    <span><b>Esc</b> → 取消钉住</span>
+  </footer>
+</main>
+
+<aside id="right">
+  <section class="card">
+    <h2>点上现在存了什么</h2>
+    <div class="pointcard" id="pcard">
+      <span class="k">把鼠标移到点云上，或按「逐点扫描」</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>计数统计</h2>
+    <div class="st" id="stats"></div>
+    <canvas id="hist" height="104" style="width:100%;height:104px"></canvas>
+    <p class="note" id="histnote"></p>
+  </section>
+
+  <section class="card">
+    <h2>r → 粒度曲线</h2>
+    <canvas id="curve" height="140" style="width:100%;height:140px"></canvas>
+    <p class="note">
+      实线 = 平均 c<sub>i</sub>（本次算子）。虚线 = 连通粒数 <span class="badge ext">延伸</span>：把「距离 ≤ r」做传递闭包后的粒个数。
+      两条线一起看，就是在问「<b>多粗才够</b>」。
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>点表 <span class="mono" style="font-weight:400;text-transform:none">(x, y, c)</span></h2>
+    <div class="tblwrap">
+      <table id="tbl"><thead><tr><th style="text-align:left">#</th><th>x</th><th>y</th><th>c</th></tr></thead><tbody></tbody></table>
+    </div>
+    <p class="note" id="tblnote">扫描未到达的点，c 记为「·」——这正是「数据正被写进点里」。</p>
+  </section>
+</aside>
+
+</div>
+
+<script>
+/* ================= 数据（由 npz 导出，坐标 4 位小数） ================= */
+const DATA = __DATA__;
+
+/* ================= 状态 ================= */
+const S = {
+  ds: 0,
+  r: 0.12,
+  order: 'index',
+  speed: 40,
+  scanning: false,        // 动画是否在跑
+  step: -1,               // 已处理到第 step 个（按 orderArr 下标），-1 = 未开始
+  hover: -1, sel: -1,
+  circles: 'current',
+  fill: true, link: true, color: true, size: false, label: false, logscale: false, comp: false,
+  zoom: 1, panx: 0, pany: 0
+};
+
+/* 当前数据集的运行时数据 */
+let X = [], Y = [], LAB = [], N = 0;
+let c = new Float64Array(0);      // 逐点计数 c_i
+let revealed = new Uint8Array(0); // 扫描是否已把结果写进该点
+let orderArr = [];
+let cmax = 1, cmin = 1;
+let curve = [];                   // [{r, mean, ncomp}]
+const RMAX = 0.80;
+
+/* ================= 工具 ================= */
+const $ = id => document.getElementById(id);
+const clamp = (v,a,b) => v<a?a:v>b?b:v;
+
+function fitView(){
+  // 数据包围盒 → 画布变换（等比）
+  let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;
+  for(let i=0;i<N;i++){ if(X[i]<x0)x0=X[i]; if(X[i]>x1)x1=X[i]; if(Y[i]<y0)y0=Y[i]; if(Y[i]>y1)y1=Y[i]; }
+  const dx=Math.max(x1-x0,1e-6), dy=Math.max(y1-y0,1e-6);
+  const W=cv.clientWidth, H=cv.clientHeight;
+  const pad = 46;
+  const s = Math.min((W-2*pad)/dx, (H-2*pad)/dy) * S.zoom;
+  V.s = s;
+  V.cx = (x0+x1)/2; V.cy = (y0+y1)/2;
+  V.W = W; V.H = H;
+}
+const V = {s:100, cx:0, cy:0, W:0, H:0};
+const sx = x => V.W/2 + (x - V.cx)*V.s + S.panx;
+const sy = y => V.H/2 - (y - V.cy)*V.s + S.pany;
+const wx = px => (px - V.W/2 - S.panx)/V.s + V.cx;
+const wy = py => -(py - V.H/2 - S.pany)/V.s + V.cy;
+const px2data = px => (px)/V.s;
+
+/* 色阶：浅青蓝 → 深藏蓝 */
+const STOPS = [[0,[188,215,238]],[.25,[125,178,221]],[.5,[65,131,189]],[.75,[35,91,145]],[1,[18,51,79]]];
+function ramp(t){
+  t = clamp(t,0,1);
+  for(let i=0;i<STOPS.length-1;i++){
+    const a=STOPS[i], b=STOPS[i+1];
+    if(t>=a[0] && t<=b[0]){
+      const u=(t-a[0])/(b[0]-a[0]||1);
+      const r=Math.round(a[1][0]+(b[1][0]-a[1][0])*u),
+            g=Math.round(a[1][1]+(b[1][1]-a[1][1])*u),
+            bl=Math.round(a[1][2]+(b[1][2]-a[1][2])*u);
+      return 'rgb('+r+','+g+','+bl+')';
+    }
+  }
+  return 'rgb(18,51,79)';
+}
+function tOf(ci){
+  if(S.logscale) return Math.log(1+ci)/Math.log(1+N);
+  return cmax>cmin ? (ci-cmin)/(cmax-cmin) : 0.5;
+}
+
+/* ================= 数据集装载 ================= */
+const NS = DATA.map(d=>d.X.length);
+function loadDS(i){
+  S.ds = i;
+  const d = DATA[i];
+  N = d.X.length;
+  X = d.X.map(p=>p[0]); Y = d.X.map(p=>p[1]); LAB = d.y;
+  c = new Float64Array(N);
+  revealed = new Uint8Array(N);
+  recompute();
+  buildOrder();
+  computeCurve();
+  buildTable();
+  resetScan();
+  renderChips(); renderDSGrid(); renderAll();
+  $('dsnote').innerHTML = d.note + '　<span class="mono">n='+N+'</span>';
+}
+
+function recompute(){
+  for(let i=0;i<N;i++){
+    let k=0;
+    for(let j=0;j<N;j++){
+      const dx=X[i]-X[j], dy=Y[i]-Y[j];
+      if(dx*dx+dy*dy <= S.r*S.r) k++;
+    }
+    c[i]=k;
+  }
+  cmin=1e9; cmax=-1e9;
+  for(let i=0;i<N;i++){ if(c[i]<cmin)cmin=c[i]; if(c[i]>cmax)cmax=c[i]; }
+}
+
+function buildOrder(){
+  orderArr = Array.from({length:N},(_,i)=>i);
+  if(S.order==='lr') orderArr.sort((a,b)=>X[a]-X[b]);
+  else if(S.order==='out'){
+    let mx=0,my=0; for(let i=0;i<N;i++){mx+=X[i];my+=Y[i];} mx/=N; my/=N;
+    orderArr.sort((a,b)=>((X[a]-mx)**2+(Y[a]-my)**2)-((X[b]-mx)**2+(Y[b]-my)**2));
+  }
+  else if(S.order==='rand'){
+    let s=12345; const rnd=()=>{s=(s*1103515245+12345)&0x7fffffff; return s/0x7fffffff;};
+    for(let i=N-1;i>0;i--){ const j=Math.floor(rnd()*(i+1)); [orderArr[i],orderArr[j]]=[orderArr[j],orderArr[i]]; }
+  }
+}
+
+function neighbors(i,r){
+  const out=[]; const r2=r*r;
+  for(let j=0;j<N;j++){
+    const dx=X[i]-X[j], dy=Y[i]-Y[j];
+    if(dx*dx+dy*dy<=r2) out.push(j);
+  }
+  return out;
+}
+
+/* r → 平均 c / 连通粒数（延伸） */
+function computeCurve(){
+  const K=64, arr=[];
+  const par=new Int32Array(N);
+  const find=a=>{ while(par[a]!==a){ par[a]=par[par[a]]; a=par[a]; } return a; };
+  for(let k=0;k<=K;k++){
+    const r = RMAX*k/K, r2=r*r;
+    for(let i=0;i<N;i++) par[i]=i;
+    let sum=0;
+    let roots=0;
+    for(let i=0;i<N;i++){
+      for(let j=i+1;j<N;j++){
+        const dx=X[i]-X[j], dy=Y[i]-Y[j];
+        if(dx*dx+dy*dy<=r2){ sum+=2; const a=find(i),b=find(j); if(a!==b) par[a]=b; }
+      }
+      sum+=1;              // 自身恒在邻域内 → 对角项
+    }
+    for(let i=0;i<N;i++) if(find(i)===i) roots++;
+    arr.push({r:r, mean:sum/N, ncomp:roots});
+  }
+  curve=arr;
+}
+
+/* 连通分量缓存（延伸着色用，避免每帧重算） */
+let compCache=null, compKey='';
+function getComp(){
+  const key=S.ds+'|'+S.r.toFixed(4);
+  if(compCache && compKey===key) return compCache;
+  const par=new Int32Array(N); for(let i=0;i<N;i++) par[i]=i;
+  const find=a=>{ while(par[a]!==a){ par[a]=par[par[a]]; a=par[a]; } return a; };
+  const r2=S.r*S.r;
+  for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){
+    const dx=X[i]-X[j], dy=Y[i]-Y[j];
+    if(dx*dx+dy*dy<=r2){ const a=find(i),b=find(j); if(a!==b) par[a]=b; }
+  }
+  const id=new Int32Array(N); for(let i=0;i<N;i++) id[i]=find(i);
+  compCache=id; compKey=key; return id;
+}
+
+/* ================= 扫描 ================= */
+let acc=0, lastT=0, dirty=false;
+function resetScan(){
+  S.scanning=false; S.step=-1; revealed.fill(0);
+  setPlayBtn(); cacheCompReset();
+  renderAll();
+  $('scaninfo').textContent='未开始';
+}
+function cacheCompReset(){ compCache=null; compKey=''; }
+function advance(k){
+  let changed=false;
+  for(let t=0;t<k;t++){
+    if(S.step >= N-1){ S.scanning=false; setPlayBtn(); break; }
+    S.step++;
+    const i=orderArr[S.step];
+    revealed[i]=1; updateRow(i); changed=true;
+  }
+  if(!changed) return;
+  renderFast();
+}
+function tick(ts){
+  if(!S.scanning) return;
+  if(!lastT) lastT=ts;
+  const dt=Math.min((ts-lastT)/1000,0.25); lastT=ts;
+  acc += dt*S.speed;
+  const k=Math.floor(acc);
+  if(k>0){ acc-=k; advance(k); }
+  if(S.scanning) requestAnimationFrame(tick); else lastT=0;
+}
+function setPlayBtn(){ $('play').textContent = S.scanning ? '⏸ 暂停' : '▶ 逐点扫描'; }
+
+/* ================= 绘制 ================= */
+const cv=$('cv'), ctx=cv.getContext('2d');
+function resize(){
+  const dpr=window.devicePixelRatio||1;
+  cv.width=cv.clientWidth*dpr; cv.height=cv.clientHeight*dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  fitView(); draw();
+}
+window.addEventListener('resize',resize);
+
+function curPoint(){
+  if(S.hover>=0) return S.hover;
+  if(S.sel>=0) return S.sel;
+  if(S.step>=0) return orderArr[S.step];
+  return -1;
+}
+
+function draw(){
+  const W=cv.clientWidth,H=cv.clientHeight;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,W,H);
+  fitView();
+
+  const focus = curPoint();
+  const finished = (S.step>=N-1 && N>0);
+  const scanning = !finished && S.step>=0;
+
+  /* 全部圆（雾状） */
+  if(S.circles==='all'){
+    ctx.lineWidth=1;
+    for(let i=0;i<N;i++){
+      if(scanning && !revealed[i] && i!==focus) continue;   // 扫描中只画已处理的，避免剧透
+      ctx.beginPath(); ctx.arc(sx(X[i]),sy(Y[i]),S.r*V.s,0,6.2832);
+      ctx.fillStyle='rgba(65,131,189,.045)'; ctx.fill();
+      ctx.strokeStyle='rgba(43,108,163,.16)'; ctx.stroke();
+    }
+  }
+
+  /* 焦点圆：填充 + 描边（无论圆模式如何，焦点圆都画） */
+  let nb=[];
+  if(focus>=0){
+    nb = neighbors(focus, S.r);
+    const cxp=sx(X[focus]), cyp=sy(Y[focus]), rp=S.r*V.s;
+    if(S.fill){
+      ctx.beginPath(); ctx.arc(cxp,cyp,rp,0,6.2832);
+      ctx.fillStyle='rgba(217,72,15,.085)'; ctx.fill();
+    }
+    ctx.beginPath(); ctx.arc(cxp,cyp,rp,0,6.2832);
+    ctx.strokeStyle='#d9480f'; ctx.lineWidth=1.6; ctx.stroke();
+    // 半径标注
+    ctx.beginPath(); ctx.moveTo(cxp,cyp);
+    ctx.lineTo(cxp+rp,cyp);
+    ctx.strokeStyle='rgba(217,72,15,.5)'; ctx.lineWidth=1; ctx.setLineDash([4,3]); ctx.stroke(); ctx.setLineDash([]);
+    if(S.link){
+      ctx.strokeStyle='rgba(217,72,15,.28)'; ctx.lineWidth=.8;
+      for(const j of nb){
+        if(j===focus) continue;
+        ctx.beginPath(); ctx.moveTo(cxp,cyp); ctx.lineTo(sx(X[j]),sy(Y[j])); ctx.stroke();
+      }
+    }
+  }
+  const nbSet = new Set(nb);
+
+  /* 连通分量着色（延伸） */
+  const compId = S.comp ? getComp() : null;
+
+  /* 点 */
+  for(let i=0;i<N;i++){
+    const x=sx(X[i]), y=sy(Y[i]);
+    let col, rad=3.0;
+    const isRevealed = !scanning || revealed[i];
+    if(S.comp && isRevealed){
+      col = 'hsl('+((compId[i]*47)%360)+',58%,50%)';
+    } else if(S.color && isRevealed){
+      col = ramp(tOf(c[i]));
+    } else if(!isRevealed){
+      col = '#d3dbe6';
+    } else {
+      col = '#4a5b70';
+    }
+    if(S.size && isRevealed){
+      rad = 2.0 + 5.2*Math.sqrt(clamp(tOf(c[i]),0,1));
+    }
+    ctx.beginPath(); ctx.arc(x,y,rad,0,6.2832);
+    ctx.fillStyle=col; ctx.fill();
+
+    if(focus>=0 && nbSet.has(i) && i!==focus){
+      ctx.beginPath(); ctx.arc(x,y,rad+2.6,0,6.2832);
+      ctx.strokeStyle='#d9480f'; ctx.lineWidth=1.3; ctx.stroke();
+    }
+    if(i===focus){
+      ctx.beginPath(); ctx.arc(x,y,rad+4.2,0,6.2832);
+      ctx.strokeStyle= S.hover===i ? '#d9480f' : '#1c4e79'; ctx.lineWidth=1.8; ctx.stroke();
+    }
+    if(S.label && (N<=520)){
+      ctx.fillStyle='rgba(70,88,110,.72)'; ctx.font='9px ui-monospace,monospace';
+      ctx.fillText(i, x+rad+2, y-2);
+    }
+  }
+}
+
+/* ================= HUD / 图例 / 卡片 ================= */
+function renderHUD(){
+  const done = S.step+1;
+  $('progbar').style.width = (100*Math.max(0,done)/N)+'%';
+  const i = curPoint();
+  let s = '已写入 '+Math.max(0,done)+' / '+N+' 个点';
+  if(i>=0) s += '　·　当前 p['+i+']';
+  $('scaninfo').textContent = s;
+  const hud = $('hud');
+  hud.innerHTML = 'n = <b>'+N+'</b>　r = <b>'+S.r.toFixed(3)+'</b><br>'+
+                  '平均 c = <b>'+(c.reduce((a,b)=>a+b,0)/N).toFixed(2)+'</b>　max c = <b>'+cmax+'</b>';
+  $('lgmode').textContent = S.logscale ? '固定 log' : '自适应';
+  $('lgmin').textContent = S.logscale ? '1' : cmin;
+  $('lgmax').textContent = S.logscale ? ('log(1+'+N+')') : cmax;
+}
+
+function renderCard(){
+  const el=$('pcard');
+  const i=curPoint();
+  if(i<0){ el.innerHTML='<span class="k">把鼠标移到点云上，或按「逐点扫描」</span>'; return; }
+  const nb=neighbors(i,S.r);
+  const list = nb.length<=18 ? nb.join(', ') : nb.slice(0,18).join(', ')+' …';
+  const tag = revealed[i] ? '' : ' <span class="badge">尚未扫描到（先看到结果）</span>';
+  el.innerHTML =
+    '<div><span class="k">p[</span>'+i+'<span class="k">] = </span>'+
+    '('+X[i].toFixed(4)+', '+Y[i].toFixed(4)+', <span class="big">'+c[i]+'</span>)'+tag+'</div>'+
+    '<div class="k" style="margin-top:3px;font-size:10.5px">真值标签 y = '+LAB[i]+
+      '　标签在图里不上色，只用于事后校准</div>'+
+    '<div class="k" style="margin-top:6px;font-size:10.5px">N<sub>r</sub>(p['+i+']) 共 '+nb.length+' 个点：</div>'+
+    '<div style="font-size:10.5px;word-break:break-all">['+list+']</div>';
+}
+
+function renderStats(){
+  let s=0; for(let i=0;i<N;i++)s+=c[i];
+  const mean=s/N;
+  let v=0; for(let i=0;i<N;i++) v+=(c[i]-mean)**2;
+  const sd=Math.sqrt(v/N);
+  let c1=0; for(let i=0;i<N;i++) if(c[i]===1)c1++;
+  const el=$('stats');
+  el.innerHTML =
+    '<span class="k">n</span><span class="v">'+N+'</span>'+
+    '<span class="k">min c</span><span class="v">'+cmin+'</span>'+
+    '<span class="k">平均 c</span><span class="v">'+mean.toFixed(2)+'</span>'+
+    '<span class="k">max c</span><span class="v">'+cmax+'</span>'+
+    '<span class="k">标准差</span><span class="v">'+sd.toFixed(2)+'</span>'+
+    '<span class="k">变异系数</span><span class="v">'+(mean?(sd/mean).toFixed(3):'—')+'</span>'+
+    '<span class="k">孤立点 c=1</span><span class="v">'+c1+' ('+(100*c1/N).toFixed(1)+'%)</span>'+
+    '<span class="k">覆盖半径 r</span><span class="v">'+S.r.toFixed(3)+'</span>';
+  drawHist();
+  $('histnote').innerHTML = 'c<sub>i</sub> 的分布：右侧长尾 = 稠密区，左侧堆积在 1 = 稀疏区/孤点。'+
+    '把 r 从小拖到大，看这条分布<b>从尖峰怎样摊开</b>——这就是粒度在变粗。';
+}
+
+function drawHist(){
+  const cvh=$('hist'), g=cvh.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const W=cvh.clientWidth,H=104;
+  cvh.width=W*dpr; cvh.height=H*dpr; g.setTransform(dpr,0,0,dpr,0,0);
+  g.clearRect(0,0,W,H);
+  const L=26,R=6,T=8,B=18;
+  const plotW=W-L-R, plotH=H-T-B;
+  const K=Math.min(28, Math.max(6, cmax));
+  const bins=new Array(K).fill(0);
+  const hi = cmax+1e-9;
+  for(let i=0;i<N;i++){
+    let b=Math.floor((c[i]-1)/(hi-1)*K); if(b>=K)b=K-1; if(b<0)b=0;
+    bins[b]++;
+  }
+  const bmax=Math.max(1,...bins);
+  const bw=plotW/K;
+  for(let b=0;b<K;b++){
+    const h=plotH*bins[b]/bmax;
+    const t=(b+.5)/K;
+    g.fillStyle=ramp(t);
+    g.fillRect(L+b*bw+0.5, T+plotH-h, Math.max(1,bw-1), h);
+  }
+  g.strokeStyle='#e0e6ef'; g.lineWidth=1;
+  g.beginPath(); g.moveTo(L,T+plotH+.5); g.lineTo(L+plotW,T+plotH+.5); g.stroke();
+  g.fillStyle='#7b8a9d'; g.font='9.5px ui-monospace,monospace';
+  g.fillText('1', L-2, T+plotH+11);
+  g.fillText(String(cmax), L+plotW-14, T+plotH+11);
+  g.save(); g.translate(9,T+plotH/2); g.rotate(-Math.PI/2);
+  g.textAlign='center'; g.fillText('点数', 0, 0); g.restore();
+  // 当前 r 的均值竖线
+  const mean=c.reduce((a,b)=>a+b,0)/N;
+  const mxt=L+plotW*clamp((mean-1)/Math.max(1e-9,(cmax-1)),0,1);
+  g.strokeStyle='#d9480f'; g.setLineDash([3,3]); g.beginPath();
+  g.moveTo(mxt,T); g.lineTo(mxt,T+plotH); g.stroke(); g.setLineDash([]);
+}
+
+function drawCurve(){
+  const cvc=$('curve'), g=cvc.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const W=cvc.clientWidth,H=140;
+  cvc.width=W*dpr; cvc.height=H*dpr; g.setTransform(dpr,0,0,dpr,0,0);
+  g.clearRect(0,0,W,H);
+  const L=30,R=36,T=14,B=18, plotW=W-L-R, plotH=H-T-B;
+  /* 两个量级差很多 → 各自归一化到自己的轴，左右轴分别标注 */
+  let mM=2, mC=2;
+  for(const p of curve){ mM=Math.max(mM,p.mean); mC=Math.max(mC,p.ncomp); }
+  mM*=1.06; mC*=1.06;
+  const X0=r=>L+plotW*(r/RMAX), YM=v=>T+plotH*(1-v/mM), YC=v=>T+plotH*(1-v/mC);
+  g.strokeStyle='#eef2f8'; g.lineWidth=1;
+  for(let k=0;k<=3;k++){ const y=T+plotH*k/3; g.beginPath(); g.moveTo(L,y); g.lineTo(L+plotW,y); g.stroke(); }
+  /* 连通粒数（延伸，右侧轴，虚线） */
+  g.strokeStyle='#c78a4e'; g.lineWidth=1.3; g.setLineDash([4,3]); g.beginPath();
+  curve.forEach((p,k)=>{ k?g.lineTo(X0(p.r),YC(p.ncomp)):g.moveTo(X0(p.r),YC(p.ncomp)); }); g.stroke();
+  g.setLineDash([]);
+  /* 平均 c（本次算子，左侧轴，实线） */
+  g.strokeStyle='#2b6ca3'; g.lineWidth=2; g.beginPath();
+  curve.forEach((p,k)=>{ k?g.lineTo(X0(p.r),YM(p.mean)):g.moveTo(X0(p.r),YM(p.mean)); }); g.stroke();
+  /* 当前 r */
+  let curMean=0; { let s=0; for(let i=0;i<N;i++)s+=c[i]; curMean=s/N; }
+  g.strokeStyle='#d9480f'; g.lineWidth=1.4; g.setLineDash([3,3]);
+  g.beginPath(); g.moveTo(X0(S.r),T); g.lineTo(X0(S.r),T+plotH); g.stroke(); g.setLineDash([]);
+  g.beginPath(); g.arc(X0(S.r),YM(curMean),3.6,0,6.2832); g.fillStyle='#d9480f'; g.fill();
+  g.strokeStyle='#fff'; g.lineWidth=1.2; g.stroke();
+  /* 轴与刻度 */
+  g.font='9.5px ui-monospace,monospace';
+  g.fillStyle='#7b8a9d';
+  g.textAlign='left';
+  g.fillText('r=0', L-4, T+plotH+11);
+  g.textAlign='right';
+  g.fillText('r='+RMAX.toFixed(2), L+plotW, T+plotH+11);
+  g.textAlign='left';
+  g.fillStyle='#2b6ca3'; g.fillText('平均c', 1, T-4);  g.fillText('0', 12, T+plotH+3); g.fillText(mM.toFixed(0), 6, T+8);
+  g.textAlign='right';
+  g.fillStyle='#a25c17'; g.fillText('粒数', W-1, T-4);  g.fillText(String(mC.toFixed(0)), W-2, T+8); g.fillText('0', W-10, T+plotH+3);
+  /* 当前读数（加白色描边，压在网格线上也清楚） */
+  g.textAlign='left';
+  const lab='r='+S.r.toFixed(3)+'  →  mean c='+curMean.toFixed(1);
+  g.lineWidth=3; g.strokeStyle='rgba(255,255,255,.92)'; g.strokeText(lab, L+3, T+9);
+  g.fillStyle='#d9480f'; g.fillText(lab, L+3, T+9);
+}
+
+/* ================= 点表（增量更新，避免每帧重建 480 行） ================= */
+let rowEls=[], rowCells=[];
+function buildTable(){
+  const tb=$('tbl').querySelector('tbody');
+  const frag=document.createDocumentFragment();
+  rowEls=[]; rowCells=[];
+  for(let i=0;i<N;i++){
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td>'+i+'</td><td>'+X[i].toFixed(4)+'</td><td>'+Y[i].toFixed(4)+'</td><td></td>';
+    rowEls.push(tr); rowCells.push(tr.lastChild);
+    frag.appendChild(tr);
+  }
+  tb.innerHTML=''; tb.appendChild(frag);
+  syncTable(0, N);
+  tblScrollTop=0; $('tbl').parentElement.scrollTop=0;
+}
+let tblScrollTop=0;
+function cellHTML(i){
+  const finished=(S.step>=N-1&&N>0);
+  return (finished || revealed[i]) ? '<span class="cc">'+c[i]+'</span>' : '<span class="pend">·</span>';
+}
+function updateRow(i){
+  if(!rowCells[i]) return;
+  rowCells[i].innerHTML = cellHTML(i);
+  if(S.sel>=0 && S.sel!==i) return;
+}
+function syncTable(a,b){
+  for(let i=a;i<b;i++) if(rowCells[i]) rowCells[i].innerHTML=cellHTML(i);
+  setHL();
+}
+function setHL(){
+  for(let i=0;i<N;i++){
+    const el=rowEls[i]; if(!el) continue;
+    const hl=(i===S.hover), sl=(i===S.sel);
+    if(hl||sl){
+      el.className = hl&&sl ? 'hl sel' : (hl?'hl':'sel');
+    } else if(el.className) el.className='';
+  }
+}
+
+function renderAll(){ draw(); renderHUD(); renderCard(); renderStats(); drawCurve(); syncTable(0,N); }
+function renderFast(){ draw(); renderHUD(); renderCard(); }
+
+/* ================= 交互 ================= */
+function renderDSGrid(){
+  const g=$('dsgrid'); g.innerHTML='';
+  DATA.forEach((d,i)=>{
+    const b=document.createElement('button');
+    b.className = (i===S.ds?'on':'');
+    b.innerHTML = d.title+'<small class="mono">n='+NS[i]+'</small>';
+    b.onclick=()=>{ loadDS(i); };
+    g.appendChild(b);
+  });
+}
+
+/* r 快捷档 */
+const RCHIPS=[0.04,0.08,0.12,0.20,0.30,0.45];
+function renderChips(){
+  const box=$('rchips'); box.innerHTML='';
+  RCHIPS.forEach(v=>{
+    const b=document.createElement('button');
+    b.textContent='r='+v.toFixed(2);
+    if(Math.abs(v-S.r)<1e-9){ b.style.background='#2b6ca3'; b.style.color='#fff'; b.style.borderColor='#2b6ca3'; }
+    b.onclick=()=>setR(v,true);
+    box.appendChild(b);
+  });
+}
+renderChips();
+
+function setR(v,snap){
+  S.r = clamp(v, 0.005, 1.5);
+  $('r').value = S.r; $('rn').value = S.r.toFixed(3);
+  renderChips();
+  recompute(); renderAll();
+}
+$('r').addEventListener('input',e=>setR(parseFloat(e.target.value)));
+$('rn').addEventListener('change',e=>setR(parseFloat(e.target.value)));
+
+$('play').onclick=()=>{
+  if(S.step>=N-1) resetScan();
+  S.scanning=!S.scanning; lastT=0; setPlayBtn();
+  if(S.scanning) requestAnimationFrame(tick);
+};
+$('step').onclick=()=>{ S.scanning=false; setPlayBtn(); advance(1); };
+$('rst').onclick=()=>resetScan();
+$('jump').onclick=()=>{
+  S.scanning=false; setPlayBtn();
+  S.step=N-1; revealed.fill(1); renderAll();
+  $('scaninfo').textContent='已写入 '+N+' / '+N+' 个点　·　算子执行完毕';
+};
+$('speed').addEventListener('input',e=>{ S.speed=parseInt(e.target.value); $('speedv').textContent=S.speed+'/秒'; });
+$('order').addEventListener('change',e=>{ S.order=e.target.value; buildOrder(); resetScan(); });
+
+const CK=[['ck-fill','fill'],['ck-link','link'],['ck-color','color'],['ck-size','size'],
+          ['ck-label','label'],['ck-logyue','logscale'],['ck-comp','comp']];
+CK.forEach(([id,key])=>{
+  $(id).addEventListener('change',e=>{ S[key]=e.target.checked; renderAll(); });
+});
+$('circleseg').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b)return;
+  S.circles=b.dataset.v;
+  [...$('circleseg').children].forEach(x=>x.classList.toggle('on',x===b));
+  draw();
+});
+
+/* 画布：悬停 / 选中 / 平移 / 缩放 */
+let drag=null;
+function pick(px,py){
+  let best=-1, bd=1e9;
+  for(let i=0;i<N;i++){
+    const dx=sx(X[i])-px, dy=sy(Y[i])-py, d=dx*dx+dy*dy;
+    if(d<bd){ bd=d; best=i; }
+  }
+  return bd <= 121 ? best : -1;   // 11px 内才算命中
+}
+cv.addEventListener('mousemove',e=>{
+  const r=cv.getBoundingClientRect();
+  const px=e.clientX-r.left, py=e.clientY-r.top;
+  if(drag){
+    S.panx=drag.px+ (e.clientX-drag.x); S.pany=drag.py+(e.clientY-drag.y);
+    draw(); return;
+  }
+  const i=pick(px,py);
+  const tip=$('tip');
+  if(i!==S.hover){
+    S.hover=i; renderCard(); draw(); setHL();
+  }
+  if(i>=0){
+    tip.style.display='block';
+    tip.style.left=px+'px'; tip.style.top=py+'px';
+    tip.textContent='p['+i+']  c = '+c[i];
+    cv.style.cursor='pointer';
+  } else { tip.style.display='none'; cv.style.cursor='grab'; }
+});
+cv.addEventListener('mouseleave',()=>{ S.hover=-1; $('tip').style.display='none'; renderCard(); draw(); setHL(); });
+cv.addEventListener('mousedown',e=>{ drag={x:e.clientX,y:e.clientY,px:S.panx,py:S.pany}; cv.style.cursor='grabbing'; });
+window.addEventListener('mouseup',()=>{ drag=null; cv.style.cursor='grab'; });
+cv.addEventListener('click',e=>{
+  const r=cv.getBoundingClientRect();
+  const i=pick(e.clientX-r.left, e.clientY-r.top);
+  S.sel = (i===S.sel) ? -1 : i;
+  renderCard(); draw(); setHL();
+});
+cv.addEventListener('wheel',e=>{
+  e.preventDefault();
+  S.zoom = clamp(S.zoom*(e.deltaY<0?1.12:0.89), 0.3, 14); draw();
+},{passive:false});
+window.addEventListener('keydown',e=>{ if(e.key==='Escape'){ S.sel=-1; renderCard(); draw(); setHL(); } });
+
+/* ================= 导出 ================= */
+function dl(name, text, mime){
+  const b=new Blob([text],{type:mime||'text/plain;charset=utf-8'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=name; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),3000);
+}
+function dsName(){
+  const d=DATA[S.ds]; return 'points_'+d.id;
+}
+$('expcsv').onclick=()=>{
+  let s='index,x,y,c\n';
+  for(let i=0;i<N;i++) s+=i+','+X[i]+','+Y[i]+','+c[i]+'\n';
+  s+='# dataset,'+dsName()+'\n# r,'+S.r+'\n';
+  dl(dsName()+'_r'+S.r.toFixed(3)+'.csv', s, 'text/csv;charset=utf-8');
+};
+$('expjson').onclick=()=>{
+  const pts=[]; for(let i=0;i<N;i++) pts.push({i:i,x:X[i],y:Y[i],c:c[i],y_true:LAB[i]});
+  dl(dsName()+'_r'+S.r.toFixed(3)+'.json',
+     JSON.stringify({dataset:dsName(), r:S.r, n:N, mean_c:+(c.reduce((a,b)=>a+b,0)/N).toFixed(6),
+                     max_c:cmax, points:pts}, null, 1), 'application/json');
+};
+$('exppy').onclick=async()=>{
+  const s =
+'# 与网页完全同一个算子。也可以直接用现成的脚本：\n'+
+'#   python 2-tool/granulate_radius.py 1-data/'+dsName()+'.npz --r '+S.r.toFixed(3)+'\n'+
+'import numpy as np\n'+
+'P = np.load(r"D:\\Dustar_code\\project\\granular-computing\\1-data\\'+dsName()+'.npz")\n'+
+'X, y = P["X"], P["y"]\n'+
+'r = '+S.r.toFixed(3)+'   # 网页上当前的 r\n'+
+'D = np.linalg.norm(X[:, None, :] - X[None, :, :], axis=-1)\n'+
+'C = (D <= r).sum(axis=1)          # 含自身\n'+
+'Xc = np.c_[X, C]                  # ← c 存进每个点\n'+
+'print(C.min(), C.mean(), C.max())\n';
+  try{ await navigator.clipboard.writeText(s); $('exppy').textContent='已复制 ✓';
+       setTimeout(()=>$('exppy').textContent='复制 Python 片段',1400); }
+  catch(err){ dl('snippet.py', s); }
+};
+
+/* ================= 启动 ================= */
+resize();
+loadDS(0);
+$('speedv').textContent=S.speed+'/秒';
+</script>
+</body>
+</html>
