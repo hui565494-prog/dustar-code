@@ -32,5 +32,10 @@ project/homecredit/*.pdf
 project/homecredit/*.docx
 project/homecredit/*.png
 
-# Home Credit Êı¾İÇĞ³öµÄÑùÀı£¨²»ÄÉÈë°æ±¾¿ØÖÆ£©
+# æŒ‡å¯¼ä¹¦é…å¥—ä»£ç ä¸æ•°æ®åˆ‡ç‰‡ï¼ˆç¬¬ä¸‰æ–¹ç‰ˆæƒ / Kaggle å—é™æ•°æ®ï¼‰
+project/homecredit/code/
+project/homecredit/practice/*.csv
+project/homecredit/practice/*.txt
+
+# Home Credit ï¿½ï¿½ï¿½ï¿½ï¿½Ğ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ±¾ï¿½ï¿½ï¿½Æ£ï¿½
 python/pandas/mini/
