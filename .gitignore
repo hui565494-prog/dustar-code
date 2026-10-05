@@ -1,13 +1,5 @@
-# 环境与工具目录
-.conda/
+# VS Code 本机配置（不进版本控制）
 .vscode/
-anaconda3/
-msys64/
-Microsoft VS Code/
-
-# 教材（版权内容，不纳入版本控制）
-neural-networks-and-deep-learning-master/
-深度学习入门：基于Python的理论与实现/
 
 # 编译产物
 *.exe
@@ -37,5 +29,5 @@ project/homecredit/code/
 project/homecredit/practice/*.csv
 project/homecredit/practice/*.txt
 
-# Home Credit �����г���������������汾���ƣ�
+# pandas 小样本目录（本地留档）
 python/pandas/mini/
