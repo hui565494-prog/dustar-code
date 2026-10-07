@@ -7,8 +7,8 @@ int main(){
     while(x>0){
         if(x%10==1){
             out++;
-            x=x/10;
         }
+        x/=10;
     }
     printf("%d",out);
     return 0;
